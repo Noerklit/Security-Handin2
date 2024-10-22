@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option go_package = "grpc/proto"; 
+
+package proto;
+
+message Share {
+    int64 shareOfSecret = 1;
+}
+
+message Acknowledgement {
+    bool ack = 1;
+}
+
+// Patient to patient communication
+service SendShareService {
+    rpc SendShare(Share) returns (Acknowledgement);
+}
+
+message AggregatedShare {
+    int64 aggregatedShareOfSecret = 1;
+}
+
+// Patient to hospital communication
+service SendAggregatedShareService {
+    rpc SendAggregatedShare(AggregatedShare) returns (Acknowledgement);
+}
