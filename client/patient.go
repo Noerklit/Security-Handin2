@@ -126,7 +126,7 @@ func (p *Patient) calculateShares() (int64, int64, int64) {
 }
 
 func loadTLSCredentials(patientName string) (credentials.TransportCredentials, error) {
-    log.Printf("[%s] Loading CA certificate...", patientName)
+    // log.Printf("[%s] Loading CA certificate...", patientName)
 	
 	// Load the certificate of the CA who signed the client's certificate
     pemServerCA, err := os.ReadFile("cert/ca-cert.pem")
@@ -140,7 +140,7 @@ func loadTLSCredentials(patientName string) (credentials.TransportCredentials, e
 		log.Fatalf("[%s] Failed to append CA certificate to pool", patientName)
         return nil, fmt.Errorf("failed to add server CA's certificate")
     }
-	log.Printf("[%s] Successfully loaded CA certificate.", patientName)
+	// log.Printf("[%s] Successfully loaded CA certificate.", patientName)
 
     // Load the client's certificate and private key
     clientCert, err := loadClientCertificate(patientName)
@@ -148,7 +148,7 @@ func loadTLSCredentials(patientName string) (credentials.TransportCredentials, e
 		log.Fatalf("[%s] Failed to load client certificate: %v", patientName, err)
         return nil, err
     }
-	log.Printf("[%s] Loaded client certificate and key.", patientName)
+	// log.Printf("[%s] Loaded client certificate and key.", patientName)
 
     // Create the credentials and return it
     config := &tls.Config{
@@ -158,21 +158,21 @@ func loadTLSCredentials(patientName string) (credentials.TransportCredentials, e
         ClientCAs:      certPool,
     }
 
-	log.Printf("[%s] TLS credentials configured successfully.", patientName)
+	// log.Printf("[%s] TLS credentials configured successfully.", patientName)
     return credentials.NewTLS(config), nil
 }
 
 func loadClientCertificate(patientName string) (tls.Certificate, error) {
     certFile := fmt.Sprintf("cert/%s-cert.pem", patientName)
     keyFile := fmt.Sprintf("cert/%s-key.pem", patientName)
-	log.Printf("[%s] Loading client certificate and key from %s and %s...", patientName, certFile, keyFile)
+	// log.Printf("[%s] Loading client certificate and key from %s and %s...", patientName, certFile, keyFile)
     
 	clientCert, err := tls.LoadX509KeyPair(certFile, keyFile)
     if err != nil {
 		log.Fatalf("[%s] Failed to load client certificate and key: %v", patientName, err)
         return tls.Certificate{}, err
     }
-	log.Printf("[%s] Successfully loaded client certificate and key.", patientName)
+	// log.Printf("[%s] Successfully loaded client certificate and key.", patientName)
     return clientCert, nil
 }
 
@@ -208,7 +208,7 @@ func main() {
     go patient.StartPatientServer(&wg)
     time.Sleep(10 * time.Second)
 
-    log.Println("All patients are up and running")
+    // log.Println("All patients are up and running")
 
     share1, share2, share3 := patient.calculateShares()
     log.Printf("[%s] calculated shares: %d, %d, %d", patient.patientName, share1, share2, share3)

@@ -8,13 +8,10 @@ import (
 	"log"
 	"net"
 	"os"
-
 	pb "handin2/grpc"
-
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
-
 
 type Hospital struct {
 	pb.UnimplementedSendAggregatedShareServiceServer
