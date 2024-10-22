@@ -2,6 +2,10 @@ How to run this program
 =======================
 To run this program, an installation of Go is required. To run the script to generate the certificates, the `openssl` and make command is required. The following steps will guide you through the process of running the program.
 
+First of run the following command to make sure files are correct:
+```bash
+go mod tidy
+```
 Start of by by navigating to the root of the project in a terminal (I use wsl for windows, and so the paths provided might not work in things like cmd or powershell).
 Run the following command to generate the certificates:
 ```bash
